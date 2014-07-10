@@ -171,9 +171,7 @@ module YamlRecord
     #
     def destroy
       run_callbacks(:destroy) do
-        new_data = self.class.all
-          .reject { |item| item.persisted_attributes == self.persisted_attributes }
-          .map { |item| item.persisted_attributes }
+        new_data = self.class.all.reject{ |item| item.persisted_attributes == self.persisted_attributes }.map { |item| item.persisted_attributes }
         self.class.write_contents(new_data)
         self.is_destroyed = true
       end
